@@ -28,19 +28,28 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    // TODO: Place code here.
-    HWND hWnd = ::FindWindowW(NULL, L"WoT Client");
-    if(NULL == hWnd)
+    LPCWSTR listWndTitles[] = {
+        L"W.o.T. Client Hybrid Version [Direct3D11]",
+        L"WoT Client",
+        L"World of Warships"
+    };
+    
+    HWND hWnd = NULL;
+    for (const auto& wndName : listWndTitles)
     {
-
-        hWnd = ::FindWindowW(NULL, L"World of Warships");
-        if (NULL == hWnd)
+         hWnd = ::FindWindowW(NULL, wndName);    
+        if(NULL != hWnd)
         {
-            ::MessageBoxW(HWND_DESKTOP, L"Please start World of Tanks", L"Info", MB_ICONASTERISK | MB_OK);
-            return 1;
+            break;
         }
-        
     }
+    
+    if (NULL == hWnd)
+    {
+        ::MessageBoxW(HWND_DESKTOP, L"Can't find any runned WG Game'", L"Info", MB_ICONASTERISK | MB_OK);
+        return 1;
+    }
+    
     DWORD dwStyle = ::GetWindowLong(hWnd, GWL_STYLE);
     DWORD dwFlags = (WS_MINIMIZEBOX|WS_MAXIMIZEBOX|WS_SYSMENU|WS_CAPTION|WS_THICKFRAME);
     if(0 != (dwStyle&WS_MINIMIZEBOX))
