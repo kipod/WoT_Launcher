@@ -1,22 +1,21 @@
 @ECHO OFF
 
-IF "%_PROJ_%"=="" SET _PROJ_="%~1"
+IF "%_PROJ_%"=="" SET _PROJ_="WoT_Launcher.sln"
 IF "%_CONF_%"=="" SET _CONF_=Release
 
-IF "%_VS_VER%"=="" SET _VS_VER=11.0
+:: Set here version of VS
+IF "%_VS_VER%"=="" SET _VS_VER=12.0
 
 CALL :GetPathToVisualStudio %_VS_VER%
 ECHO Path to VS: %_PATH_TO_VS%
 
-SET _ENV_BAT_="%_PATH_TO_VS%\..\..\VC\vcvarsall.bat"
+SET _ENV_BAT_="%_PATH_TO_VS%..\..\VC\vcvarsall.bat"
 
 ECHO CALL %_ENV_BAT_% 
 CALL %_ENV_BAT_% 
 
-REM msbuild %_PROJ_% /property:Configuration=Hybrid /maxcpucount:1
-msbuild %_PROJ_% /property:Configuration=%_CONF_% /m /flp:logfile=%_PROJ_%.build.log
-
-
+:: msbuild %_PROJ_% /property:Configuration=Hybrid /maxcpucount:1
+msbuild %_PROJ_% /property:Configuration=%_CONF_% /m /flp:logfile=%_PROJ_%.build.log %*
 
 GOTO END
 
