@@ -1,0 +1,3 @@
+LIBRARY INJ
+EXPORTS
+	InjTreadProc
