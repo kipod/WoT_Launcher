@@ -4,7 +4,7 @@ IF "%_PROJ_%"=="" SET _PROJ_="WoT_Launcher.sln"
 IF "%_CONF_%"=="" SET _CONF_=Release
 
 :: Set here version of VS
-IF "%_VS_VER%"=="" SET _VS_VER=12.0
+IF "%_VS_VER%"=="" SET _VS_VER=14.0
 
 CALL :GetPathToVisualStudio %_VS_VER%
 ECHO Path to VS: %_PATH_TO_VS%
